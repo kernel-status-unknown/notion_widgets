@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IES Countdown Widget</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: transparent;
+    font-family: Georgia, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fffaf2;
+  }
+
+  .widget {
+    width: 420px;
+    padding: 24px;
+    border-radius: 24px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 18px;
+  }
+
+  .ghibli-frame {
+    width: 100%;
+    height: 240px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+  }
+
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .box {
+    padding: 14px 8px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .number {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="widget">
+    <div class="title">Indian Economic Service</div>
+    <div class="subtitle">Your dream is getting closer ✨</div>
+
+    <div class="ghibli-frame">
+      <img src="a_wide_richly_illustrated_motivational_poster_b.png" alt="IES Ghibli Countdown" style="width:100%; height:100%; object-fit:cover; border-radius:20px;" />
+    </div>
+
+    <div class="countdown">
+      <div class="box"><div class="number" id="days">00</div><div class="label">Days</div></div>
+      <div class="box"><div class="number" id="hours">00</div><div class="label">Hours</div></div>
+      <div class="box"><div class="number" id="minutes">00</div><div class="label">Min</div></div>
+      <div class="box"><div class="number" id="seconds">00</div><div class="label">Sec</div></div>
+    </div>
+  </div>
+
+<script>
+  const examDate = new Date("2026-06-20T09:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const gap = examDate - now;
+
+    const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((gap % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
