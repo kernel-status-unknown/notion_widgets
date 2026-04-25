@@ -1,183 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greetings</title>
-
-    <style>
-        /* Theme Variables — change these based on each page */
-        :root {
-            --text-color: #5c4a72;
-            --accent-color: #d8c7f0;
-            --soft-border: rgba(92, 74, 114, 0.18);
-            --glow: rgba(216, 199, 240, 0.25);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-variant-caps: all-petite-caps;
-            font-family: "Georgia", serif;
-            background: transparent; /* removed background */
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .widget {
-            padding: 22px 28px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: fit-content;
-            max-width: 95%;
-            margin: auto;
-
-            /* soft glass style instead of hard black box */
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--soft-border);
-            border-radius: 22px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 30px var(--glow);
-        }
-
-        .greet {
-            font-size: 2.6em;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .date {
-            font-family: monospace;
-            font-size: 1.2em;
-            margin-bottom: 12px;
-            opacity: 0.9;
-            text-align: center;
-        }
-
-        .clock {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: monospace;
-            font-size: 1.8em;
-            font-weight: 500;
-        }
-
-        .time {
-            display: inline-block;
-            min-width: 32px;
-            text-align: center;
-        }
-
-        .colon {
-            margin: 0 4px;
-            opacity: 0.7;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="widget">
-
-            <div class="greet" id="greet"></div>
-
-            <div class="date" id="date"></div>
-
-            <div class="clock">
-                <div class="time" id="hour"></div>
-                <div class="colon">:</div>
-                <div class="time" id="min"></div>
-                <div class="colon">:</div>
-                <div class="time" id="sec"></div>
-            </div>
-
-        </div>
-    </div>
-
-<script>
-    function displayGreetings(today) {
-        let hrs = today.getHours();
-        let name = "Shree";
-        let greet = "";
-
-        if (hrs < 12)
-            greet = "Good Morning " + name;
-        else if (hrs >= 12 && hrs <= 17)
-            greet = "Good Afternoon " + name;
-        else
-            greet = "Good Evening " + name;
-
-        document.getElementById("greet").innerHTML = greet;
+<style>
+    /* Theme Variables */
+    :root {
+        --text-color: #f8f6f2; /* soft off-white / pure white */
+        --accent-color: rgba(255, 255, 255, 0.12);
+        --soft-border: rgba(255, 255, 255, 0.15);
+        --glow: rgba(255, 255, 255, 0.08);
     }
 
-    function displayDate(today) {
-        const days = [
-            "Sunday", "Monday", "Tuesday",
-            "Wednesday", "Thursday", "Friday", "Saturday"
-        ];
-
-        const monthNames = [
-            "January", "February", "March", "April",
-            "May", "June", "July", "August",
-            "September", "October", "November", "December"
-        ];
-
-        let dayName = days[today.getDay()];
-        let monthName = monthNames[today.getMonth()];
-        let date = today.getDate();
-        let year = today.getFullYear();
-
-        document.getElementById("date").innerHTML =
-            `${dayName}, ${monthName} ${date}, ${year}`;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    function displayClock(today) {
-        let hour = padZeros(twelveHour(today.getHours()));
-        let minutes = padZeros(today.getMinutes());
-        let seconds = padZeros(today.getSeconds());
-
-        let period = today.getHours() >= 12 ? " PM" : " AM";
-        seconds += period;
-
-        document.getElementById("hour").innerHTML = hour;
-        document.getElementById("min").innerHTML = minutes;
-        document.getElementById("sec").innerHTML = seconds;
+    body {
+        font-variant-caps: all-petite-caps;
+        font-family: "Georgia", serif;
+        background: transparent; /* fully removed background */
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
     }
 
-    function twelveHour(hour) {
-        if (hour > 12) return hour - 12;
-        if (hour === 0) return 12;
-        return hour;
+    .widget {
+        padding: 22px 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: fit-content;
+        max-width: 95%;
+        margin: auto;
+
+        /* transparent widget */
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
     }
 
-    function padZeros(num) {
-        return num < 10 ? "0" + num : num;
+    .greet {
+        font-size: 2.6em;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        color: var(--text-color);
     }
 
-    function displayWidget() {
-        let today = new Date();
-
-        displayGreetings(today);
-        displayDate(today);
-        displayClock(today);
-
-        setTimeout(displayWidget, 500);
+    .date {
+        font-family: monospace;
+        font-size: 1.2em;
+        margin-bottom: 12px;
+        opacity: 0.95;
+        text-align: center;
+        color: var(--text-color);
     }
 
-    displayWidget();
-</script>
+    .clock {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: monospace;
+        font-size: 1.8em;
+        font-weight: 500;
+        color: var(--text-color);
+    }
 
-</body>
-</html>
+    .time {
+        display: inline-block;
+        min-width: 32px;
+        text-align: center;
+    }
+
+    .colon {
+        margin: 0 4px;
+        opacity: 0.8;
+    }
+</style>
