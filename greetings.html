@@ -1,23 +1,16 @@
 <style>
-    /* Theme Variables */
-    :root {
-        --text-color: #f8f6f2; /* soft off-white / pure white */
-        --accent-color: rgba(255, 255, 255, 0.12);
-        --soft-border: rgba(255, 255, 255, 0.15);
-        --glow: rgba(255, 255, 255, 0.08);
-    }
-
-    * {
+    html, body {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
+        width: 100%;
+        min-height: 100%;
+        background: transparent !important; /* removes white background */
     }
 
     body {
         font-variant-caps: all-petite-caps;
         font-family: "Georgia", serif;
-        background: transparent; /* fully removed background */
-        color: var(--text-color);
+        color: #f8f6f2; /* off-white / pure white text */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -25,58 +18,43 @@
     }
 
     .widget {
-        padding: 22px 28px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: fit-content;
-        max-width: 95%;
-        margin: auto;
-
-        /* transparent widget */
-        background: transparent;
+        background: transparent !important;
         border: none;
         box-shadow: none;
-        backdrop-filter: none;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .greet {
         font-size: 2.6em;
-        font-weight: 500;
+        color: #f8f6f2;
         text-align: center;
-        margin-bottom: 12px;
-        letter-spacing: 1px;
-        color: var(--text-color);
+        margin-bottom: 10px;
     }
 
     .date {
         font-family: monospace;
         font-size: 1.2em;
-        margin-bottom: 12px;
-        opacity: 0.95;
-        text-align: center;
-        color: var(--text-color);
+        color: #f8f6f2;
+        margin-bottom: 10px;
     }
 
     .clock {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-family: monospace;
         font-size: 1.8em;
-        font-weight: 500;
-        color: var(--text-color);
+        color: #f8f6f2;
+        display: flex;
+        align-items: center;
     }
 
     .time {
-        display: inline-block;
-        min-width: 32px;
+        min-width: 30px;
         text-align: center;
     }
 
     .colon {
         margin: 0 4px;
-        opacity: 0.8;
     }
 </style>
