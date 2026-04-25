@@ -1,60 +1,183 @@
-<style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        background: transparent !important; /* removes white background */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
+
+    <style>
+        /* Theme Variables — change these based on each page */
+        :root {
+            --text-color: #5c4a72;
+            --accent-color: #d8c7f0;
+            --soft-border: rgba(92, 74, 114, 0.18);
+            --glow: rgba(216, 199, 240, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-variant-caps: all-petite-caps;
+            font-family: "Georgia", serif;
+            background: transparent; /* removed background */
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .widget {
+            padding: 22px 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: fit-content;
+            max-width: 95%;
+            margin: auto;
+
+            /* soft glass style instead of hard black box */
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--soft-border);
+            border-radius: 22px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 30px var(--glow);
+        }
+
+        .greet {
+            font-size: 2.6em;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .date {
+            font-family: monospace;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            opacity: 0.9;
+            text-align: center;
+        }
+
+        .clock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+            font-size: 1.8em;
+            font-weight: 500;
+        }
+
+        .time {
+            display: inline-block;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .colon {
+            margin: 0 4px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="widget">
+
+            <div class="greet" id="greet"></div>
+
+            <div class="date" id="date"></div>
+
+            <div class="clock">
+                <div class="time" id="hour"></div>
+                <div class="colon">:</div>
+                <div class="time" id="min"></div>
+                <div class="colon">:</div>
+                <div class="time" id="sec"></div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+    function displayGreetings(today) {
+        let hrs = today.getHours();
+        let name = "Shree";
+        let greet = "";
+
+        if (hrs < 12)
+            greet = "Good Morning " + name;
+        else if (hrs >= 12 && hrs <= 17)
+            greet = "Good Afternoon " + name;
+        else
+            greet = "Good Evening " + name;
+
+        document.getElementById("greet").innerHTML = greet;
     }
 
-    body {
-        font-variant-caps: all-petite-caps;
-        font-family: "Georgia", serif;
-        color: #f8f6f2; /* off-white / pure white text */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+    function displayDate(today) {
+        const days = [
+            "Sunday", "Monday", "Tuesday",
+            "Wednesday", "Thursday", "Friday", "Saturday"
+        ];
+
+        const monthNames = [
+            "January", "February", "March", "April",
+            "May", "June", "July", "August",
+            "September", "October", "November", "December"
+        ];
+
+        let dayName = days[today.getDay()];
+        let monthName = monthNames[today.getMonth()];
+        let date = today.getDate();
+        let year = today.getFullYear();
+
+        document.getElementById("date").innerHTML =
+            `${dayName}, ${monthName} ${date}, ${year}`;
     }
 
-    .widget {
-        background: transparent !important;
-        border: none;
-        box-shadow: none;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    function displayClock(today) {
+        let hour = padZeros(twelveHour(today.getHours()));
+        let minutes = padZeros(today.getMinutes());
+        let seconds = padZeros(today.getSeconds());
+
+        let period = today.getHours() >= 12 ? " PM" : " AM";
+        seconds += period;
+
+        document.getElementById("hour").innerHTML = hour;
+        document.getElementById("min").innerHTML = minutes;
+        document.getElementById("sec").innerHTML = seconds;
     }
 
-    .greet {
-        font-size: 2.6em;
-        color: #f8f6f2;
-        text-align: center;
-        margin-bottom: 10px;
+    function twelveHour(hour) {
+        if (hour > 12) return hour - 12;
+        if (hour === 0) return 12;
+        return hour;
     }
 
-    .date {
-        font-family: monospace;
-        font-size: 1.2em;
-        color: #f8f6f2;
-        margin-bottom: 10px;
+    function padZeros(num) {
+        return num < 10 ? "0" + num : num;
     }
 
-    .clock {
-        font-family: monospace;
-        font-size: 1.8em;
-        color: #f8f6f2;
-        display: flex;
-        align-items: center;
+    function displayWidget() {
+        let today = new Date();
+
+        displayGreetings(today);
+        displayDate(today);
+        displayClock(today);
+
+        setTimeout(displayWidget, 500);
     }
 
-    .time {
-        min-width: 30px;
-        text-align: center;
-    }
+    displayWidget();
+</script>
 
-    .colon {
-        margin: 0 4px;
-    }
-</style>
+</body>
+</html>
