@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IES Countdown Skin Widget</title>
+
 <!-- Replace only the CSS part with this improved adaptive version -->
 
 <style>
@@ -40,7 +47,7 @@ body {
   position: absolute;
 
   /* these scale with image automatically */
-  top: 40%;
+  top: 39%;
   left: 10%;
   width: 42%;
 
@@ -119,3 +126,83 @@ body {
   }
 }
 </style>
+</head>
+<body>
+
+<div class="widget">
+  <img
+    src="iesfinalcountdown.png"
+    alt="IES Countdown Background"
+    class="skin-image"
+  />
+
+  <div class="countdown-overlay">
+
+    <div class="box">
+      <div class="number" id="days">00</div>
+      <div class="label">Days</div>
+    </div>
+
+    <div class="box">
+      <div class="number" id="hours">00</div>
+      <div class="label">Hours</div>
+    </div>
+
+    <div class="box">
+      <div class="number" id="minutes">00</div>
+      <div class="label">Minutes</div>
+    </div>
+
+    <div class="box">
+      <div class="number" id="seconds">00</div>
+      <div class="label">Seconds</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const examDate = new Date("2026-06-20T09:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const gap = examDate - now;
+
+  if (gap <= 0) {
+    document.getElementById("days").innerText = "00";
+    document.getElementById("hours").innerText = "00";
+    document.getElementById("minutes").innerText = "00";
+    document.getElementById("seconds").innerText = "00";
+    return;
+  }
+
+  const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (gap % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor(
+    (gap % (1000 * 60)) / 1000
+  );
+
+  document.getElementById("days").innerText =
+    String(days).padStart(2, "0");
+
+  document.getElementById("hours").innerText =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").innerText =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").innerText =
+    String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
