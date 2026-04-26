@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Today's Stats Widget</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Georgia, serif;
+}
+
+.widget {
+  position: relative;
+  width: min(100vw, 1600px);
+  aspect-ratio: 4 / 3;
+}
+
+.skin-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.stats-overlay {
+  position: absolute;
+  top: 31.5%;
+  left: 44%;
+  width: 40%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2%;
+}
+
+.stat-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 12vw;
+}
+
+.number {
+  font-size: clamp(2rem, 4vw, 5rem);
+  font-weight: 600;
+  color: #2f4a33;
+  line-height: 1;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .stats-overlay {
+    top: 31%;
+    left: 44%;
+    width: 41%;
+  }
+
+  .number {
+    font-size: clamp(1.2rem, 3.5vw, 3rem);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="widget">
+  <img src="answer_writing.png" alt="Today's Stats Skin" class="skin-image" />
+
+  <div class="stats-overlay">
+    <div class="stat-box">
+      <div class="number" id="questions">07</div>
+    </div>
+
+    <div class="stat-box">
+      <div class="number" id="pages">10</div>
+    </div>
+
+    <div class="stat-box">
+      <div class="number" id="topics">03</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+BEST SETUP:
+GitHub = hosting
+Notion = database
+
+Change these values manually first.
+Later we can connect directly to Notion API.
+*/
+
+const studyStats = {
+  questions: 7,
+  pages: 10,
+  topics: 3
+};
+
+function updateWidget() {
+  document.getElementById('questions').innerText = String(studyStats.questions).padStart(2, '0');
+  document.getElementById('pages').innerText = String(studyStats.pages).padStart(2, '0');
+  document.getElementById('topics').innerText = String(studyStats.topics).padStart(2, '0');
+}
+
+updateWidget();
+</script>
+
+</body>
+</html>
